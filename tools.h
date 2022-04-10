@@ -18,18 +18,9 @@ HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 //参数2 表示控制台的宽 需要大于0
 void tool_set_window_size(short length, short width)
 {
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	COORD pos = { width, length};
-	
-	//设置窗口的四个角的位置
-	SMALL_RECT rc = { 0, 0, width - 1, length - 1 };
-
-	// -- 设置窗口信息
-	SetConsoleWindowInfo(hOut, true, &rc);
-
-	//设置缓冲区大小
-	SetConsoleScreenBufferSize(hOut, pos);
+	char cmd[64];
+	sprintf_s(cmd, "mode con cols=%d lines=%d", width, length);
+	system(cmd);
 }
 
 
